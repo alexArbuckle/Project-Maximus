@@ -1,11 +1,6 @@
 # Project Maximus
 > Use a Raspberry Pi to capture the live stream of a USB camera and manage relays all wrapped into a user interface. Discontinued. Discontinued. Spring 2021.
 
-
-
-# lxrbckl
-> CRUD tools to enhance readability and abstraction in projects, for both local and remote file management. Summer 2024.
-
 ---
 
 [**`Python`**](https://github.com/lxRbckl/lxRbckl/blob/main/Python/README.md)

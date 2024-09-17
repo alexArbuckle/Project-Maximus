@@ -30,7 +30,7 @@ stateLowVoltage = GPIO.input(pinLowVoltage)
 
 
 # cleanup board #
-GPIO.cleanup
+GPIO.cleanup()
 
 
 exit(1 if (stateIsCharging and not stateLowVoltage) else 0)

@@ -1,10 +1,10 @@
 #!/bin/bash
 
 
-# environment <
+# Environment settings
 path=$(pwd)
 thresholdGB="1"
-sleepDuration=3
+sleepDuration="15s"
 videoFormat=".mov"
 recordDuration=180
 
@@ -18,27 +18,28 @@ pinIsCharging=17
 pinLowVoltage=27
 diagnosticsCommand="sudo python3 ${path}/diagnostics.py ${pinIsCharging} ${pinLowVoltage}"
 
-# >
-
 
 while true; do
 
-   # while (running) <
-   if [ "${diagnosticsCommand}" = "True" ]; then
+   # run diagnostics command #
+   $diagnosticsCommand
+   diagnostics_status=$?
 
-      # mount primary #
+   if [ "$diagnostics_status" -eq 1 ]; then
+
+      # mount primary storage #
       sudo mount $devicePrimaryStorage $filepathPrimary
 
-      deviceSize=$(du -sBG $filepathPrimary | awk '{print $1}' | sed 's/G//');
-
       # backup procedure <
+      deviceSize=$(du -sBG $filepathPrimary | awk '{print $1}' | sed 's/G//')
+
       if [ "$deviceSize" -gt "$thresholdGB" ]; then
 
          if [ -n "$deviceSecondaryStorage" ]; then
 
-            sudo mount $deviceSecondaryStorage $filepathSecondary;
+            sudo mount $deviceSecondaryStorage $filepathSecondary
             sudo rsync -av "$filepathPrimary/" "$filepathSecondary/"
-            sudo umount $deviceSecondaryStorage;
+            sudo umount $deviceSecondaryStorage
 
          fi
 
@@ -48,17 +49,16 @@ while true; do
 
       # >
 
-      # iterate videos <
+      # iterate (videos) <
       for deviceVideo in "${deviceVideos[@]}"; do
 
          echo $deviceVideo
 
-         # # mkdir if DNE <
-         # # record source in background <
-         # sudo mkdir -p "${filepathPrimary}/${deviceVideo}";
+         # mkdir if DNE
+         # record source in background
+         # sudo mkdir -p "${filepathPrimary}/${deviceVideo}"
          # (
-
-         #    localFile="$(date +%Y%m%d-%H%M)${videoFormat}";
+         #    localFile="$(date +%Y%m%d-%H%M)${videoFormat}"
          #    sudo ffmpeg -y \
          #       -f v4l2 \
          #       -i "../../${deviceVideo}" \
@@ -66,10 +66,7 @@ while true; do
          #       -preset ultrafast \
          #       -t $recordDuration \
          #       "${filepathPrimary}/${deviceVideo}/${localFile}"
-
          # ) &
-
-         # # >
 
       done
 
@@ -78,14 +75,12 @@ while true; do
       # complete all tasks #
       wait
 
-   # >
+   elif [ "$diagnostics_status" -eq 0 ]; then
 
-   else
-
-      # unmount primary #
+      # unmount primary storage #
       sudo umount $devicePrimaryStorage
 
-      echo "POWER SAVING MODE"
+      echo "POWER EFFICIENT MODE"
       sleep $sleepDuration
 
    fi

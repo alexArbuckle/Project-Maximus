@@ -16,7 +16,7 @@ deviceVideos=("dev/video0" "dev/video2")
 
 pinIsCharging=17
 pinLowVoltage=27
-diagnosticsCommand="sudo python3 ${path}/evaluateShutdown.py ${pinIsCharging} ${pinLowVoltage}"
+diagnosticsCommand="sudo python3 ${path}/diagnostics.py ${pinIsCharging} ${pinLowVoltage}"
 
 # >
 

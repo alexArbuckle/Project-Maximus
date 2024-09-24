@@ -1,4 +1,4 @@
-# [Project Maximus](https://github.com/lxRbckl/Project-Maximus/wiki/V1)
+# [Project Maximus 1](https://github.com/lxRbckl/Project-Maximus/wiki/V1)
 > Use a Raspberry Pi to capture the live stream of a USB camera and manage relays all wrapped into a user interface. Discontinued. Spring 2021.
 
 ---

@@ -1,5 +1,5 @@
 # [Project Maximus 2](https://github.com/lxRbckl/Project-Maximus/wiki/V2)
-> Use a Raspberry Pi to capture and record the stream of one to many USB camera(s). Fall 2024.
+> Use a Raspberry Pi to capture and record the stream of one to many USB camera(s). Discontinued. Fall 2024.
 
 ---
 
